@@ -1,10 +1,8 @@
 package br.com.jonathan.course_rest_with_spring.service;
 
 import br.com.jonathan.course_rest_with_spring.data.dto.v1.PersonDTO;
-import br.com.jonathan.course_rest_with_spring.data.dto.v2.PersonDTOv2;
 import br.com.jonathan.course_rest_with_spring.exception.ResourceNotFoundException;
 import br.com.jonathan.course_rest_with_spring.mapper.ObjectMapper;
-import br.com.jonathan.course_rest_with_spring.mapper.custom.PersonMapper;
 import br.com.jonathan.course_rest_with_spring.model.Person;
 import br.com.jonathan.course_rest_with_spring.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -24,9 +22,6 @@ public class PersonServices {
     @Autowired
     PersonRepository personRepository;
 
-    @Autowired
-    PersonMapper personMapper;
-
     public List<PersonDTO> findAll(){
         log.info("Finding all people!");
         return ObjectMapper.parseListObjects(personRepository.findAll(), PersonDTO.class);
@@ -42,12 +37,6 @@ public class PersonServices {
         log.info("Creating one person!");
         var entity = ObjectMapper.parseObject(person, Person.class);
         return ObjectMapper.parseObject(personRepository.save(entity), PersonDTO.class);
-    }
-
-    public PersonDTOv2 createv2(PersonDTOv2 person){
-        log.info("Creating one person!");
-        var entity = personMapper.convertDTOToEntity(person);
-        return personMapper.convertEntityToDTO(personRepository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person){

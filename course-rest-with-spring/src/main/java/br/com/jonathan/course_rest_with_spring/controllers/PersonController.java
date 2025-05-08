@@ -1,7 +1,6 @@
 package br.com.jonathan.course_rest_with_spring.controllers;
 
 import br.com.jonathan.course_rest_with_spring.data.dto.v1.PersonDTO;
-import br.com.jonathan.course_rest_with_spring.data.dto.v2.PersonDTOv2;
 import br.com.jonathan.course_rest_with_spring.service.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired
@@ -30,11 +29,6 @@ public class PersonController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTO create(@RequestBody PersonDTO person){
         return services.create(person);
-    }
-
-    @PostMapping(value = "/v2",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTOv2 create(@RequestBody PersonDTOv2 person){
-        return services.createv2(person);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
